@@ -15,8 +15,8 @@ public class InputManager : Singleton<InputManager>
     public event Action<Vector2> OnTouchRightSide;
 
 
-    public event Action<Vector2> OnTouchPressStarted;
-    public event Action<Vector2> OnTouchPressCanceled;
+    //public event Action<Vector2> OnTouchPressStarted;
+    //public event Action<Vector2> OnTouchPressCanceled;
 
     //public delegate void TouchTapEvent();
     //public event TouchTapEvent OnTouchTap;
@@ -27,8 +27,6 @@ public class InputManager : Singleton<InputManager>
 
     PlayerInputs playerInputActions;
     EventSystem eventSystem;
-
-
 
     protected override void Awake()
     {
@@ -52,12 +50,12 @@ public class InputManager : Singleton<InputManager>
     {
         Vector2 touchPosition = playerInputActions.Player.TouchInput.ReadValue<Vector2>();
         //Debug.Log("touch position is: " + touchPosition);
-        //Debug.Log("Screen width is: " + Screen.width);
+        Debug.Log("Screen width is: " + Screen.width);
 
         if (touchPosition.x < Screen.width / 2 )
         {
-            Debug.Log("Pressed performed");
-            Debug.Log("Left side");
+            //Debug.Log("Pressed performed");
+            //Debug.Log("Left side");
             OnTouchLeftSide?.Invoke(touchPosition);
         }
         
@@ -71,8 +69,8 @@ public class InputManager : Singleton<InputManager>
 
         if (touchPosition.x > Screen.width / 2)
         {
-            Debug.Log("Tap performed");
-            Debug.Log("Right side");
+            //Debug.Log("Tap performed");
+            //Debug.Log("Right side");
             OnTouchRightSide?.Invoke(touchPosition);
         }    
     }
@@ -81,7 +79,6 @@ public class InputManager : Singleton<InputManager>
     {
         Vector2 touchPosition = playerInputActions.Player.TouchPosition.ReadValue<Vector2>();
         //Debug.Log("Canel;e");
-        OnTouchPressCanceled?.Invoke(touchPosition);
 
         OnTouchLeftSideCancelled?.Invoke(touchPosition);
 

@@ -1,13 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>
 {
+    public event Action<int> OnChangeAmmo;
+
     [SerializeField] 
     private GameObject _player;
+    [SerializeField]
+    private GameObject _playerBullet;
+    [SerializeField]
+    Transform _playerBulletSpawnPoint;
+
     private Rigidbody2D _playerRigidBody;
+    private float _bulletSpeed = 5f;
+    private int _ammountOfAmmo = 5;
+
     
     // Start is called before the first frame update
     void Start()
@@ -17,24 +29,11 @@ public class PlayerManager : MonoBehaviour
         InputManager.Instance.OnTouchRightSide += PlayerShoot;
 
         _playerRigidBody = _player.GetComponent<Rigidbody2D>();
+        _playerBullet.GetComponent<Rigidbody2D>();
        
     }
 
-    private void FixedUpdate()
-    {
-        Vector3 clampedPosition = transform.position;
-        clampedPosition.x = Mathf.Clamp(clampedPosition.x, ScreenBoundaries.Left, ScreenBoundaries.Right);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, ScreenBoundaries.Bottom, ScreenBoundaries.Top);
-        transform.position = clampedPosition;
-    }
-    public static class ScreenBoundaries
-    {
-        public static float Left => Camera.main.ViewportToWorldPoint(Vector3.zero).x;
-        public static float Right => Camera.main.ViewportToWorldPoint(Vector3.right).x;
-        public static float Top => Camera.main.ViewportToWorldPoint(Vector3.up).y;
-        public static float Bottom => Camera.main.ViewportToWorldPoint(Vector3.zero).y;
-    }
-
+    
 
     private void OnDisable()
     {
@@ -42,8 +41,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.Instance.OnTouchLeftSideCancelled -= PlayerGoDown;
         InputManager.Instance.OnTouchRightSide -= PlayerShoot;
     }
-
-
+    
     private void PlayerGoUp(Vector2 vector)
     {
         Debug.Log("Player Go up!");
@@ -59,14 +57,21 @@ public class PlayerManager : MonoBehaviour
     }
     private void PlayerShoot(Vector2 vector)
     {
-        Debug.Log("Player Shoot!");
-
+        if (_ammountOfAmmo > 0)
+        {
+            Debug.Log("Player Shoot!");
+            GameObject bullet = Instantiate(_playerBullet, _playerBulletSpawnPoint.transform.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * _bulletSpeed;
+            _ammountOfAmmo--;
+            OnChangeAmmo?.Invoke(_ammountOfAmmo);
+        }
     }
-    private
 
-    // Update is called once per frame
-    void Update()
+    public void IncreaseAmmoAmmount()
     {
-        
+        _ammountOfAmmo++;
+        OnChangeAmmo?.Invoke(_ammountOfAmmo);
     }
+
+
 }
