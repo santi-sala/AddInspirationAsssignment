@@ -727,8 +727,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: AddInspiration - Assignment
-  metroPackageVersion: 
+  metroPackageName: AddInspiration-Assignment
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -736,7 +736,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: AddInspiration - Assignment
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: AddInspiration - Assignment
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
@@ -800,7 +800,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 76843594-8c68-4b53-9295-ae656893a69d
   framebufferDepthMemorylessMode: 0

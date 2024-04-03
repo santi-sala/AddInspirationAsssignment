@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -11,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Environment
   - 
   - 
   - 
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4192685681
+    locked: 0
+  - name: Testing
+    uniqueID: 2359332463
     locked: 0
