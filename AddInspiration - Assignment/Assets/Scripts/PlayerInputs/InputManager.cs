@@ -7,10 +7,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+
 public class InputManager : Singleton<InputManager>
 {
-    public event Action<Vector2> OnTouchTap;
-    public event Action<Vector2> OnTouchInput;
+    public event Action<Vector2> OnTouchLeftSide;
+    public event Action<Vector2> OnTouchLeftSideCancelled;
+    public event Action<Vector2> OnTouchRightSide;
+
 
     public event Action<Vector2> OnTouchPressStarted;
     public event Action<Vector2> OnTouchPressCanceled;
@@ -37,31 +40,51 @@ public class InputManager : Singleton<InputManager>
 
     private void Start()
     {
-        playerInputActions.Player.TouchInput.performed += TouchInput_performed;
-        //playerInputActions.Player.TouchTap.performed += TouchTap_performed;
+        //playerInputActions.Player.TouchInput.performed += TouchInput_performed;
+        playerInputActions.Player.TouchTap.performed += TouchTap_performed;
         //playerInputActions.Player.TouchHold.performed += TouchHold_performed;
-        //playerInputActions.Player.TouchPress.started += TouchPress_started;
+        playerInputActions.Player.TouchPress.started += TouchPress_started;
         //playerInputActions.Player.TouchPress.performed += TouchPress_performed;
-        //playerInputActions.Player.TouchPress.canceled += TouchPress_canceled;
+        playerInputActions.Player.TouchPress.canceled += TouchPress_canceled;
     }
 
-    private void TouchInput_performed(InputAction.CallbackContext obj)
+    private void TouchPress_started(InputAction.CallbackContext obj)
     {
-        //Debug.Log("Touch input performed");
         Vector2 touchPosition = playerInputActions.Player.TouchInput.ReadValue<Vector2>();
         //Debug.Log("touch position is: " + touchPosition);
         //Debug.Log("Screen width is: " + Screen.width);
 
         if (touchPosition.x < Screen.width / 2 )
         {
+            Debug.Log("Pressed performed");
             Debug.Log("Left side");
+            OnTouchLeftSide?.Invoke(touchPosition);
         }
-        else
-        {
-            Debug.Log("Right side");
-        }
+        
+    }
 
-        //OnTouchInput?.Invoke(touchPosition);
+    private void TouchTap_performed(InputAction.CallbackContext obj)
+    {
+        Vector2 touchPosition = playerInputActions.Player.TouchInput.ReadValue<Vector2>();
+        //Debug.Log("touch position is: " + touchPosition);
+        //Debug.Log("Screen width is: " + Screen.width);
+
+        if (touchPosition.x > Screen.width / 2)
+        {
+            Debug.Log("Tap performed");
+            Debug.Log("Right side");
+            OnTouchRightSide?.Invoke(touchPosition);
+        }    
+    }
+
+    private void TouchPress_canceled(InputAction.CallbackContext obj)
+    {
+        Vector2 touchPosition = playerInputActions.Player.TouchPosition.ReadValue<Vector2>();
+        //Debug.Log("Canel;e");
+        OnTouchPressCanceled?.Invoke(touchPosition);
+
+        OnTouchLeftSideCancelled?.Invoke(touchPosition);
+
     }
 
 
@@ -78,42 +101,13 @@ public class InputManager : Singleton<InputManager>
         //Vector2 touchPosition = playerInputActions.Player.TouchPosition.ReadValue<Vector2>();
         //Debug.Log("Press " + obj.phase);
         //OnTouchPress?.Invoke(touchPosition);
-    }
-
-    private void TouchPress_canceled(InputAction.CallbackContext obj)
-    {
-        Vector2 touchPosition = playerInputActions.Player.TouchPosition.ReadValue<Vector2>();
-        //Debug.Log("Canel;e");
-        OnTouchPressCanceled?.Invoke(touchPosition);
-    }
+    }    
 
     private void TouchHold_performed(InputAction.CallbackContext obj)
     {
         //Debug.Log("Hold " + obj.phase);
     }
-
-    private void TouchTap_performed(InputAction.CallbackContext obj)
-    {
-        //Debug.Log("Tap " + obj.phase);
-
-        // Get the touch position
-        Vector2 touchPosition = playerInputActions.Player.TouchPosition.ReadValue<Vector2>();
-
-        // Perform a raycast from the touch position
-        PointerEventData eventData = new PointerEventData(eventSystem);
-        eventData.position = touchPosition;
-        List<RaycastResult> results = new List<RaycastResult>();
-        eventSystem.RaycastAll(eventData, results);
-
-        // Check if any UI element was hit by the raycast
-        bool isPointerOverUI = results.Count > 0;
-
-        // If not over a UI element, invoke the OnTouchTap event
-        if (!isPointerOverUI)
-        {
-            Debug.Log("Tap performed");
-            OnTouchTap?.Invoke(touchPosition);
-        }
-    }
     */
+
+
 }
