@@ -21,12 +21,17 @@ public class UIManager : Singleton<UIManager>
     private TextMeshProUGUI _timeGameOverText;
     [SerializeField]
     private TextMeshProUGUI _scoreGameOverText;
-    
+
+    private float _timer;
+    private float _seconds;
+    private float _minutes;
+
+
 
 
     private int _score = 0;
 
-    private void Awake()
+    private void OnEnable()
     {
         _gameOverPanel.SetActive(false);
     }
@@ -36,6 +41,15 @@ public class UIManager : Singleton<UIManager>
     void Start()
     {
         PlayerManager.Instance.OnChangeAmmo += UpdateAmmo;
+    }
+
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+        _seconds = ((int)_timer % 60);
+        _minutes = ((int)_timer / 60);
+        _timeText.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
+        
     }
 
     private void UpdateAmmo(int obj)
@@ -51,16 +65,22 @@ public class UIManager : Singleton<UIManager>
 
     public void GameOver()
     {
-        Time.timeScale = 0;
         _gameOverPanel.SetActive(true);
         _scoreGameOverText.text = "Final score: " +_score.ToString();
-        _timeGameOverText.text = "Time: " + _timeText;
+        _timeGameOverText.text = "Time: " + _timeText.text;
+        Time.timeScale = 0;
 
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+    }
+
+    public void Settings()
+    {
+        Debug.Log("Settings");
     }
 
 }

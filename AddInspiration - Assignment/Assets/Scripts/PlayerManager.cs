@@ -9,6 +9,7 @@ public class PlayerManager : Singleton<PlayerManager>
 {
     public event Action<int> OnChangeAmmo;
 
+
     [SerializeField] 
     private GameObject _player;
     [SerializeField]
@@ -35,22 +36,22 @@ public class PlayerManager : Singleton<PlayerManager>
 
     
 
-    private void OnDisable()
-    {
-        InputManager.Instance.OnTouchLeftSide -= PlayerGoUp;
-        InputManager.Instance.OnTouchLeftSideCancelled -= PlayerGoDown;
-        InputManager.Instance.OnTouchRightSide -= PlayerShoot;
-    }
+    //private void OnDisable()
+    //{
+    //    InputManager.Instance.OnTouchLeftSide -= PlayerGoUp;
+    //    InputManager.Instance.OnTouchLeftSideCancelled -= PlayerGoDown;
+    //    InputManager.Instance.OnTouchRightSide -= PlayerShoot;
+    //}
     
     private void PlayerGoUp(Vector2 vector)
     {
-        Debug.Log("Player Go up!");
+        //Debug.Log("Player Go up!");
         _playerRigidBody.gravityScale = -5;
 
     }
     private void PlayerGoDown(Vector2 vector)
     {
-        Debug.Log("Player Go Down!");
+        //Debug.Log("Player Go Down!");
         _playerRigidBody.gravityScale = 1;
 
 
@@ -59,7 +60,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         if (_ammountOfAmmo > 0)
         {
-            Debug.Log("Player Shoot!");
+           // Debug.Log("Player Shoot!");
             GameObject bullet = Instantiate(_playerBullet, _playerBulletSpawnPoint.transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity = transform.right * _bulletSpeed;
             _ammountOfAmmo--;
@@ -72,6 +73,7 @@ public class PlayerManager : Singleton<PlayerManager>
         _ammountOfAmmo++;
         OnChangeAmmo?.Invoke(_ammountOfAmmo);
     }
+
 
 
 }

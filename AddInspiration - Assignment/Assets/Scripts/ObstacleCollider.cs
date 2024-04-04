@@ -10,7 +10,9 @@ public class ObstacleCollider : MonoBehaviour
         if (collision.tag == "Bullet")
         {
             Debug.Log("Bullet hit the obstacle");
-            //UIManager.Instance.UpdateScore();
+            UIManager.Instance.UpdateScore();
+           // UIManager.Instance.GameOver();
+
 
             Destroy(collision.gameObject);
             Destroy(gameObject);

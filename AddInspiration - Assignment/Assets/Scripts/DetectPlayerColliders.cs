@@ -16,9 +16,9 @@ public class DetectPlayerColliders : MonoBehaviour
 
         if (collision.tag == "Obstacle")
         {
-            Debug.Log("Player is hit!");
+            Debug.Log("Player is hit!!!!!!");
+            //PlayerManager.Instance.GameOver();
             UIManager.Instance.GameOver();
-            //Time.timeScale = 0;
             //Destroy(collision.gameObject);
             //Destroy(PlayerManager.Instance.GetPlayer());
         }
