@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 
+[DefaultExecutionOrder(1)]
 public class InputManager : Singleton<InputManager>
 {
     public event Action<Vector2> OnTouchLeftSide;
@@ -50,7 +51,7 @@ public class InputManager : Singleton<InputManager>
     {
         Vector2 touchPosition = playerInputActions.Player.TouchInput.ReadValue<Vector2>();
         //Debug.Log("touch position is: " + touchPosition);
-        Debug.Log("Screen width is: " + Screen.width);
+        //Debug.Log("Screen width is: " + Screen.width);
 
         if (touchPosition.x < Screen.width / 2 )
         {

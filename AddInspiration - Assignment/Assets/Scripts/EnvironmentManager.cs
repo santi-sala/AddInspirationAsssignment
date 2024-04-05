@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(3)]
 public class EnvironmentManager : MonoBehaviour
 {
     [SerializeField]
@@ -78,7 +79,7 @@ public class EnvironmentManager : MonoBehaviour
         {
             //Debug.Log("Spawning obstacle");
             
-            Vector3 obstaclePosition = new Vector3(Random.Range(22f, 58f), Random.Range(-3f, 6.66f), 0);
+            Vector3 obstaclePosition = new Vector3(Random.Range(22f, 58f), Random.Range(-3.2f, 3.5f), 0);
             // Instantiate the object
             Instantiate(_obstacle, obstaclePosition, Quaternion.identity, _environment.transform);
 

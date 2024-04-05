@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
+[DefaultExecutionOrder(4)]
 
 public class UIManager : Singleton<UIManager>
 {

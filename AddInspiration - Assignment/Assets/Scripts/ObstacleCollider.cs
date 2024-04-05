@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(7)]
 public class ObstacleCollider : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)

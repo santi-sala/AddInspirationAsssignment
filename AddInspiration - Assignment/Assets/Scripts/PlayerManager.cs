@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
+[DefaultExecutionOrder(2)]
+
 public class PlayerManager : Singleton<PlayerManager>
 {
     public event Action<int> OnChangeAmmo;
@@ -32,9 +34,7 @@ public class PlayerManager : Singleton<PlayerManager>
         _playerRigidBody = _player.GetComponent<Rigidbody2D>();
         _playerBullet.GetComponent<Rigidbody2D>();
        
-    }
-
-    
+    }    
 
     //private void OnDisable()
     //{
@@ -46,7 +46,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private void PlayerGoUp(Vector2 vector)
     {
         //Debug.Log("Player Go up!");
-        _playerRigidBody.gravityScale = -5;
+        _playerRigidBody.gravityScale = -3;
 
     }
     private void PlayerGoDown(Vector2 vector)
