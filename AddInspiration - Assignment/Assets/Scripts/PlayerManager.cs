@@ -17,7 +17,9 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField]
     private GameObject _playerBullet;
     [SerializeField]
-    Transform _playerBulletSpawnPoint;
+    private Transform _playerBulletSpawnPoint;
+    [SerializeField]
+    private GameObject _jetPackParticles;
 
     private Rigidbody2D _playerRigidBody;
     private float _bulletSpeed = 5f;
@@ -33,6 +35,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
         _playerRigidBody = _player.GetComponent<Rigidbody2D>();
         _playerBullet.GetComponent<Rigidbody2D>();
+        _jetPackParticles.SetActive(false);
        
     }    
 
@@ -47,12 +50,14 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         //Debug.Log("Player Go up!");
         _playerRigidBody.gravityScale = -3;
+        _jetPackParticles.SetActive(true);
 
     }
     private void PlayerGoDown(Vector2 vector)
     {
         //Debug.Log("Player Go Down!");
         _playerRigidBody.gravityScale = 1;
+        _jetPackParticles.SetActive(false);
 
 
     }

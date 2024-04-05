@@ -75,6 +75,12 @@ public class UIManager : Singleton<UIManager>
 
     public void RestartGame()
     {
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1;
+    }
+
+    public void MainMenu()
+    {
         SceneManager.LoadScene(0);
         Time.timeScale = 1;
     }
