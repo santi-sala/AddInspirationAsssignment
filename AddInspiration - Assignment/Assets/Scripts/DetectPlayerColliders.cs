@@ -11,15 +11,17 @@ public class DetectPlayerColliders : MonoBehaviour
     {
         if (collision.tag == "Ammo")
         {
-            PlayerManager.Instance.IncreaseAmmoAmmount();            
+            PlayerManager.Instance.IncreaseAmmoAmmount(); 
+            AudioManager.Instance.PlaySFX(3);
             Destroy(collision.gameObject);
             //Debug.Log("Player hit ammo refill!");
         }
 
         if (collision.tag == "Obstacle")
         {
-            Debug.Log("Player is hit!!!!!!");
+            //Debug.Log("Player is hit!!!!!!");
             //PlayerManager.Instance.GameOver();
+            AudioManager.Instance.PlaySFX(2);
             UIManager.Instance.GameOver();
             //Destroy(collision.gameObject);
             //Destroy(PlayerManager.Instance.GetPlayer());

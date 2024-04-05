@@ -12,6 +12,7 @@ public class ObstacleCollider : MonoBehaviour
         {
             Debug.Log("Bullet hit the obstacle");
             UIManager.Instance.UpdateScore();
+            AudioManager.Instance.PlaySFX(1);
            // UIManager.Instance.GameOver();
 
 

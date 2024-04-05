@@ -51,6 +51,7 @@ public class PlayerManager : Singleton<PlayerManager>
         //Debug.Log("Player Go up!");
         _playerRigidBody.gravityScale = -3;
         _jetPackParticles.SetActive(true);
+        AudioManager.Instance.PlayJetStart();
 
     }
     private void PlayerGoDown(Vector2 vector)
@@ -58,6 +59,7 @@ public class PlayerManager : Singleton<PlayerManager>
         //Debug.Log("Player Go Down!");
         _playerRigidBody.gravityScale = 1;
         _jetPackParticles.SetActive(false);
+        AudioManager.Instance.PlayJetMute();
 
 
     }
@@ -68,6 +70,7 @@ public class PlayerManager : Singleton<PlayerManager>
            // Debug.Log("Player Shoot!");
             GameObject bullet = Instantiate(_playerBullet, _playerBulletSpawnPoint.transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity = transform.right * _bulletSpeed;
+            AudioManager.Instance.PlaySFX(0);
             _ammountOfAmmo--;
             OnChangeAmmo?.Invoke(_ammountOfAmmo);
         }

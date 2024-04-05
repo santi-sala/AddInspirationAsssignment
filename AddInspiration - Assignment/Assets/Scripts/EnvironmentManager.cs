@@ -33,7 +33,7 @@ public class EnvironmentManager : MonoBehaviour
 
     void Update()
     {
-        if (_levelcounter > 2)
+        if (_levelcounter > 0)
         {
             _speed += 1;
             _levelcounter = 0;
